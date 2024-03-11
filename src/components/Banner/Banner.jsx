@@ -8,7 +8,7 @@ const Banner = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const request = await axios.get(requests.fetchNetflixOriginals);
+      const request = await axios.get(requests.fetchPopularMovies);
       setMovie(
         request.data.results[
           Math.floor(Math.random() * request.data.results.length - 1)
@@ -19,8 +19,6 @@ const Banner = () => {
     fetchData();
   }, []);
 
-  console.log(movie);
-
   const truncate = (string, n) => {
     return string?.length > n ? string.substr(0, n - 1) + "..." : string;
   };
@@ -29,40 +27,23 @@ const Banner = () => {
       className="banner_container"
       style={{
         backgroundSize: "cover",
-        // backgroundImage: `url("https://playbackonline.ca/wp/wp-content/uploads/2020/05/Screen-Shot-2020-05-04-at-1.41.10-PM.png)`,
-        backgroundColor: "black",
+        backgroundImage: `url(https://image.tmdb.org/t/p/original${movie?.backdrop_path})`,
+
         backgroundPosition: "center center",
       }}
     >
+      <div className="banner--fadetop " />
       <div className="banner__contents">
-        <h1 className="banner__title"> Movie Name</h1>
+        <h1 className="banner__title"> {movie?.original_title}</h1>
         <div className="banner__buttons">
           <button className="banner__button">Play</button>
           <button className="banner__button"> My List</button>
         </div>
         <h1 className="banner__description">
-          {truncate(
-            `This is a test description This is a test description This is a test
-          description This is a test descriptionThis is a test description This
-          is a test descriptionThis is a test description This is a test This is
-          a test description This is a test description descriptionThis is a
-          test description This is a test descriptionThisThis is a test
-          description This is a test description is a test description This is a
-          test descriptionThis is a test description This is a test
-          descriptionThis is a test description This is a test descriptionThis
-          is a test description This is a test descriptionThis is a test
-          description This is a test descriptionThis is a test description This
-          is a test descriptionThis is a test description This is a test
-          descriptionThis is a test description This is a test descriptionThis
-          is a test description This is a test descriptionThis is a test
-          description This is a test descriptionThis is a test description This
-          is a test descriptionThis is a test description This is a test
-          descriptionThis is a test description This is a test description`,
-            350
-          )}
+          {truncate(movie?.overview, 250)}
         </h1>
       </div>
-      <div className="banner--fadeBottom" />
+      <div className="banner--fadeBottom " />
     </header>
   );
 };
