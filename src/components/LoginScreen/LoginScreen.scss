@@ -1,9 +1,11 @@
 .login__container {
   position: relative;
-  height: 100%;
+  height: 100vh;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center 70%;
+  overflow: hidden;
+
   .loginScreen__background {
     .maxflix_log {
       position: fixed;
@@ -13,6 +15,7 @@
       cursor: pointer;
       padding-left: 20px;
       object-fit: contain;
+      z-index: 2;
     }
 
     .signin_btn {
@@ -24,6 +27,8 @@
       background-color: #e50914;
       color: #fff;
       border: none;
+      z-index: 2;
+      cursor: pointer;
     }
 
     .loginScreen_gradient {
@@ -31,6 +36,74 @@
       z-index: 1;
       height: 100vh;
       background: rgba(0, 0, 0, 0.4);
+      position: absolute;
+      background-image: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.5) 0,
+        rgba(0, 0, 0, 0) 80%,
+        rgba(0, 0, 0, 0.7) 100%
+      );
+    }
+
+    .login_body {
+      position: absolute;
+      top: 47%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      color: #fff;
+      padding: 20px;
+      width: 100%;
+
+      h1 {
+        font-size: 3.125rem;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      h2 {
+        font-size: 2rem;
+        font-weight: 400;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      h3 {
+        font-size: 1.3rem;
+        font-weight: 400;
+        text-align: center;
+      }
+
+      .loginScreen__input {
+        width: 100%;
+        margin: 20px;
+        form {
+          display: flex; // Use flex to align input and button horizontally
+          align-items: center;
+          justify-content: center;
+          input {
+            padding: 10px;
+            outline-width: 0;
+            height: 30px;
+            width: 30%;
+            border: none;
+            max-width: 600px;
+          }
+
+          .getStarted_btn {
+            padding: 16px 20px;
+            font-size: 1rem;
+            border: none;
+            color: #fff;
+            background-color: #e50914;
+            cursor: pointer;
+            border: none;
+          }
+        }
+      }
     }
   }
 }
