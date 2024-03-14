@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import LoginScreen from "./components/LoginScreen/LoginScreen";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./utils/firebase";
+import Player from "./components/Player/Player";
 function App() {
   const [user, setUser] = useState(null);
 
@@ -28,6 +29,7 @@ function App() {
       ) : (
         <Routes>
           <Route path="/" element={<HomeScreen />} />
+          <Route path="/player" element={<Player />} />
         </Routes>
       )}
     </div>

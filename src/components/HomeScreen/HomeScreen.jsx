@@ -11,26 +11,22 @@ const HomeScreen = () => {
     <div className="homeScreen">
       <Nav />
       <Banner />
+      <Row title="Romantic Movies" fetchUrl={requests.fetchRomanceMovies} />
+      <Row title="Adventure Movies" fetchUrl={requests.fetchAdventureMovies} />
+      <Row title="top Rated" fetchUrl={requests.fetchTopRatedMovies} />
       <Row
-        tittle="Romantic Movies"
-        fetchUrl={requests.fetchRomanceMovies}
-        isLargeRow
-      />
-      <Row tittle="Adventure Movies" fetchUrl={requests.fetchAdventureMovies} />
-      <Row tittle="top Rated" fetchUrl={requests.fetchTopRatedMovies} />
-      <Row
-        tittle="Sci-Fi Movies"
+        title="Sci-Fi Movies"
         fetchUrl={requests.fetchScienceFictionMovies}
       />
-      <Row tittle="Thriller Movies" fetchUrl={requests.fetchThrillerMovies} />
-      <Row tittle="Animation Movies" fetchUrl={requests.fetchAnimationMovies} />
-      <Row tittle="War Movies" fetchUrl={requests.fetchWarMovies} />
-      <Row tittle="Horror Movies" fetchUrl={requests.fetchHorrorMovies} />
-      <Row tittle="Comedy Movies" fetchUrl={requests.fetchComedyMovies} />
-      <Row tittle="Music Movies" fetchUrl={requests.fetchMusicMovies} />
-      <Row tittle=" Documentaries" fetchUrl={requests.fetchDocumentaryMovies} />
-      <Row tittle="Crime Movies" fetchUrl={requests.fetchCrimeMovies} />
-      <Row tittle="Drama" fetchUrl={requests.fetchDramaMovies} />
+      <Row title="Thriller Movies" fetchUrl={requests.fetchThrillerMovies} />
+      <Row title="Animation Movies" fetchUrl={requests.fetchAnimationMovies} />
+      <Row title="War Movies" fetchUrl={requests.fetchWarMovies} />
+      <Row title="Horror Movies" fetchUrl={requests.fetchHorrorMovies} />
+      <Row title="Comedy Movies" fetchUrl={requests.fetchComedyMovies} />
+      <Row title="Music Movies" fetchUrl={requests.fetchMusicMovies} />
+      <Row title=" Documentaries" fetchUrl={requests.fetchDocumentaryMovies} />
+      <Row title="Crime Movies" fetchUrl={requests.fetchCrimeMovies} />
+      <Row title="Drama" fetchUrl={requests.fetchDramaMovies} />
     </div>
   );
 };
