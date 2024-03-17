@@ -11,18 +11,18 @@ const HomeScreen = () => {
     <div className="homeScreen">
       <Nav />
       <Banner />
-      <Row title="Romantic Movies" fetchUrl={requests.fetchRomanceMovies} />
       <Row title="Adventure Movies" fetchUrl={requests.fetchAdventureMovies} />
-      <Row title="top Rated" fetchUrl={requests.fetchTopRatedMovies} />
       <Row
         title="Sci-Fi Movies"
         fetchUrl={requests.fetchScienceFictionMovies}
       />
+      <Row title="top Rated" fetchUrl={requests.fetchTopRatedMovies} />
       <Row title="Thriller Movies" fetchUrl={requests.fetchThrillerMovies} />
+      <Row title="Comedy Movies" fetchUrl={requests.fetchComedyMovies} />
+      <Row title="Romantic Movies" fetchUrl={requests.fetchRomanceMovies} />
       <Row title="Animation Movies" fetchUrl={requests.fetchAnimationMovies} />
       <Row title="War Movies" fetchUrl={requests.fetchWarMovies} />
       <Row title="Horror Movies" fetchUrl={requests.fetchHorrorMovies} />
-      <Row title="Comedy Movies" fetchUrl={requests.fetchComedyMovies} />
       <Row title="Music Movies" fetchUrl={requests.fetchMusicMovies} />
       <Row title=" Documentaries" fetchUrl={requests.fetchDocumentaryMovies} />
       <Row title="Crime Movies" fetchUrl={requests.fetchCrimeMovies} />

@@ -1,6 +1,6 @@
 .banner_container {
   position: relative;
-  height: 600px;
+  height: 80vh;
   object-fit: contain;
   color: white;
   object-position: center 50%;
@@ -88,8 +88,8 @@
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
   }
 }
-@media screen and (min-width: 2000px) {
+@media screen and (max-width: 1050px) {
   .banner_container {
-    height: 50vh;
+    height: 60vh;
   }
 }

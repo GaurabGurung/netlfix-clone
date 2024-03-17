@@ -111,7 +111,7 @@
       font-size: 24px;
       color: white;
       cursor: pointer;
-      z-index: 10;
+      z-index: 4;
       transition: opacity 0.3s;
       height: 100%;
       background-color: rgba(6, 6, 6, 0.761);
@@ -181,3 +181,12 @@
 //     }
 //   }
 // }
+
+.row_container .wrapper .row__posters .row__poster_wrapper .hover {
+  width: 25rem;
+  left: -50px; /* Initial left position */
+}
+
+.row_container .wrapper .row__posters .row__poster_wrapper {
+  position: relative;
+}

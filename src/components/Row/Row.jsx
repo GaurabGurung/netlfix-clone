@@ -2,14 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Row.scss";
 import axios from "../../utils/axios";
 import Trailer from "../Trailer/Trailer";
-import {
-  RiAddLine,
-  RiArrowLeftLine,
-  RiArrowRightLine,
-  RiPlayFill,
-  RiThumbDownLine,
-  RiThumbUpLine,
-} from "@remixicon/react";
+import { RiArrowLeftLine, RiArrowRightLine } from "@remixicon/react";
 import TrailerControls from "../TrailerControls/TrailerControls";
 
 const Row = ({ title, fetchUrl, isLargeRow = false }) => {
@@ -20,6 +13,7 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
   const [scrollLeft, setScrollLeft] = useState(0);
   const listRef = useRef();
   const [sliderPosition, setSliderPosition] = useState(0);
+  const [showDirection, setShowDirection] = useState(false);
 
   const base_url = "https://image.tmdb.org/t/p/original/";
 
@@ -74,8 +68,19 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
     setShowTrailer(false);
   };
 
+  useEffect(() => {
+    const handleWindowBlur = () => {
+      handleMouseLeave();
+    };
+    window.addEventListener("blur", handleWindowBlur);
+
+    return () => {
+      window.removeEventListener("blur", handleWindowBlur);
+    };
+  }, []);
+
   const handleDirection = (direction) => {
-    const distance = listRef.current.offsetWidth; // Width of each slide
+    const distance = listRef.current.offsetWidth;
     const moviesPerSlide = 6;
     const totalSlides = Math.ceil(movies.length / moviesPerSlide);
     let newPosition;
@@ -83,12 +88,12 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
     if (direction === "left") {
       newPosition = sliderPosition - 1;
       if (newPosition < 0) {
-        newPosition = totalSlides - 1; // Loop to the last slide
+        newPosition = totalSlides - 1;
       }
     } else {
       newPosition = sliderPosition + 1;
       if (newPosition >= totalSlides) {
-        newPosition = 0; // Loop to the first slide
+        newPosition = 0;
       }
     }
 
@@ -100,15 +105,29 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
   };
 
   return (
-    <div className="row_container">
+    <div
+      className="row_container"
+      onMouseEnter={() => setShowDirection(true)}
+      onMouseLeave={() => setShowDirection(false)}
+    >
       <h2>{title}</h2>
       <div className="wrapper">
-        <button
-          className={`left_btn ${scrollLeft === 0 ? "hidden" : ""}`}
-          onClick={() => handleDirection("left")}
-        >
-          <RiArrowLeftLine />
-        </button>
+        {showDirection && (
+          <>
+            <button
+              className={`left_btn ${scrollLeft === 0 ? "hidden" : ""}`}
+              onClick={() => handleDirection("left")}
+            >
+              <RiArrowLeftLine />
+            </button>
+            <button
+              className="right_btn"
+              onClick={() => handleDirection("right")}
+            >
+              <RiArrowRightLine />
+            </button>
+          </>
+        )}
         <div className="row__posters" ref={listRef}>
           {movies.map(
             (movie) =>
@@ -153,7 +172,11 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
                             />
                           </div>
                         )}
-                        <TrailerControls title={hoveredMovie.title} />
+                        <TrailerControls
+                          title={hoveredMovie.title}
+                          videoKey={trailerUrl}
+                          movie={movie}
+                        />
                       </div>
                     )}
                   </div>
@@ -161,9 +184,6 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
               )
           )}
         </div>
-        <button className="right_btn" onClick={() => handleDirection("right")}>
-          <RiArrowRightLine />
-        </button>
       </div>
     </div>
   );
