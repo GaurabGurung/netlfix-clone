@@ -13,23 +13,20 @@ const Banner = () => {
   useEffect(() => {
     const fetchData = async () => {
       const request = await axios.get(requests.fetchPopularMovies);
-      console.log(request);
       setMovie(
         request.data.results[
           Math.floor(Math.random() * request.data.results.length - 1)
         ]
       );
-      console.log(movie);
+
       return request;
     };
     fetchData();
   }, []);
 
   const handlePlayClick = () => {
-    // Extract the YouTube trailer key from the movie object
-    const trailerKey = movie?.videoKey; // Update this with your actual data structure
+    const trailerKey = movie?.videoKey;
     if (trailerKey) {
-      // Navigate to the YouTube trailer link
       navigate(`https://www.youtube.com/watch?v=${trailerKey}`);
     }
   };

@@ -3,6 +3,7 @@
   height: 600px;
   object-fit: contain;
   color: white;
+  object-position: center 50%;
 
   .banner__contents {
     position: relative;
@@ -85,5 +86,10 @@
     right: 0;
     height: 50px;
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+  }
+}
+@media screen and (min-width: 2000px) {
+  .banner_container {
+    height: 50vh;
   }
 }

@@ -1,13 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Row.scss";
 import axios from "../../utils/axios";
 import Trailer from "../Trailer/Trailer";
+import {
+  RiAddLine,
+  RiArrowLeftLine,
+  RiArrowRightLine,
+  RiPlayFill,
+  RiThumbDownLine,
+  RiThumbUpLine,
+} from "@remixicon/react";
+import TrailerControls from "../TrailerControls/TrailerControls";
 
 const Row = ({ title, fetchUrl, isLargeRow = false }) => {
   const [movies, setMovies] = useState([]);
   const [hoveredMovie, setHoveredMovie] = useState(null);
   const [trailerUrl, setTrailerUrl] = useState("");
   const [showTrailer, setShowTrailer] = useState(false);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const listRef = useRef();
+  const [sliderPosition, setSliderPosition] = useState(0);
 
   const base_url = "https://image.tmdb.org/t/p/original/";
 
@@ -38,7 +50,8 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
   };
 
   const handleMouseEnter = async (movie) => {
-    setHoveredMovie(movie);
+    const updatedMovie = { ...movie, date: movie.release_date };
+    setHoveredMovie(updatedMovie);
     if (movie && movie.id) {
       try {
         const response = await fetchTrailer(movie.id);
@@ -61,39 +74,96 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
     setShowTrailer(false);
   };
 
+  const handleDirection = (direction) => {
+    const distance = listRef.current.offsetWidth; // Width of each slide
+    const moviesPerSlide = 6;
+    const totalSlides = Math.ceil(movies.length / moviesPerSlide);
+    let newPosition;
+
+    if (direction === "left") {
+      newPosition = sliderPosition - 1;
+      if (newPosition < 0) {
+        newPosition = totalSlides - 1; // Loop to the last slide
+      }
+    } else {
+      newPosition = sliderPosition + 1;
+      if (newPosition >= totalSlides) {
+        newPosition = 0; // Loop to the first slide
+      }
+    }
+
+    listRef.current.style.transition = "transform 0.5s ease-in-out";
+    listRef.current.style.transform = `translateX(${
+      -distance * newPosition
+    }px)`;
+    setSliderPosition(newPosition);
+  };
+
   return (
     <div className="row_container">
       <h2>{title}</h2>
-      <div className="row__posters">
-        {movies.map(
-          (movie) =>
-            ((isLargeRow && movie.poster_path) ||
-              (!isLargeRow && movie.backdrop_path)) && (
-              <div
-                key={movie.id}
-                className="row__poster_wrapper"
-                onMouseEnter={() => handleMouseEnter(movie)}
-                onMouseLeave={handleMouseLeave}
-              >
-                <img
-                  className={`row__poster ${isLargeRow && "row__posterLarge"}`}
-                  src={`${base_url}${
-                    isLargeRow ? movie.poster_path : movie.backdrop_path
-                  }`}
-                  alt={movie.name}
-                />
-                {hoveredMovie &&
-                  hoveredMovie.id === movie.id &&
-                  showTrailer && (
-                    <Trailer
-                      videoKey={trailerUrl}
-                      title={movie.title}
-                      date={movie.release_date}
+      <div className="wrapper">
+        <button
+          className={`left_btn ${scrollLeft === 0 ? "hidden" : ""}`}
+          onClick={() => handleDirection("left")}
+        >
+          <RiArrowLeftLine />
+        </button>
+        <div className="row__posters" ref={listRef}>
+          {movies.map(
+            (movie) =>
+              ((isLargeRow && movie.poster_path) ||
+                (!isLargeRow && movie.backdrop_path)) && (
+                <div
+                  key={movie.id}
+                  className="row__poster_wrapper"
+                  onMouseEnter={() => handleMouseEnter(movie)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <div className="movie_content">
+                    <img
+                      className={`row__poster ${
+                        isLargeRow && "row__posterLarge"
+                      }`}
+                      src={`${base_url}${
+                        isLargeRow ? movie.poster_path : movie.backdrop_path
+                      }`}
+                      alt={movie.name}
                     />
-                  )}
-              </div>
-            )
-        )}
+                    {hoveredMovie && hoveredMovie.id === movie.id && (
+                      <div className="hover">
+                        {showTrailer ? (
+                          <Trailer
+                            videoKey={trailerUrl}
+                            title={hoveredMovie.title}
+                            date={hoveredMovie.release_date}
+                          />
+                        ) : (
+                          <div className="image_video_container">
+                            <img
+                              className={`hovered_poster ${
+                                isLargeRow && "row__posterLarge"
+                              }`}
+                              src={`${base_url}${
+                                isLargeRow
+                                  ? movie.poster_path
+                                  : movie.backdrop_path
+                              }`}
+                              alt={movie.name}
+                            />
+                          </div>
+                        )}
+                        <TrailerControls title={hoveredMovie.title} />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )
+          )}
+        </div>
+        <button className="right_btn" onClick={() => handleDirection("right")}>
+          <RiArrowRightLine />
+        </button>
       </div>
     </div>
   );
