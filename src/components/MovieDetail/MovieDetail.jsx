@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import "./MovieDetail.scss";
 import { RiCloseLine } from "@remixicon/react";
-import { MovieDetailContext } from "../../Context/MovieDetail.context";
+import { MovieContext } from "../../Context/MovieDetail.context";
 
 const MovieDetail = () => {
-  const { movieDetail, setMovieDetail } = useContext(MovieDetailContext);
+  const { movieDetail, setMovieDetail } = useContext(MovieContext);
 
   return (
     <div className="movieDetails_container">

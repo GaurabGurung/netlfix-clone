@@ -1,13 +1,13 @@
 .movieDetails_container {
   position: fixed; /* Use fixed position to keep it visible while scrolling */
-  top: -50px; /* Set top position to 0 */
+  top: 0;
   left: 0;
-  width: 100%; /* Set width to full viewport width */
-  height: 200%; /* Set height to 90% of viewport height */
+  width: 100vw; /* Set width to full viewport width */
+  height: 100vh; /* Set height to 90% of viewport height */
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  background: #000000b1;
+  background: #0000007a;
   z-index: 5;
 
   .close_icon {
@@ -23,7 +23,7 @@
   .movie_popup {
     position: fixed;
     width: 900px;
-    height: 1yarn00vh;
+    height: 90%;
     background-color: white;
     padding: 20px;
     z-index: 5;

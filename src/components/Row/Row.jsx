@@ -1,15 +1,17 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import "./Row.scss";
 import axios from "../../utils/axios";
 import Trailer from "../Trailer/Trailer";
 import { RiArrowLeftLine, RiArrowRightLine } from "@remixicon/react";
 import TrailerControls from "../TrailerControls/TrailerControls";
+import { MovieContext } from "../../Context/MovieDetail.context";
 
 const Row = ({ title, fetchUrl, isLargeRow = false }) => {
+  const { showTrailer, setShowTrailer, hoveredMovie, setHoveredMovie } =
+    useContext(MovieContext);
+
   const [movies, setMovies] = useState([]);
-  const [hoveredMovie, setHoveredMovie] = useState(null);
   const [trailerUrl, setTrailerUrl] = useState("");
-  const [showTrailer, setShowTrailer] = useState(false);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [showDirection, setShowDirection] = useState(false);
 
@@ -43,22 +45,23 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
   };
 
   const handleMouseEnter = async (movie) => {
-    const updatedMovie = { ...movie, date: movie.release_date };
-    setHoveredMovie(updatedMovie);
-    if (movie && movie.id) {
-      try {
-        const response = await fetchTrailer(movie.id);
-        if (response && response.results && response.results.length > 0) {
-          const trailerKey = response.results[0].key;
-          setTrailerUrl(trailerKey);
-          setTimeout(() => {
-            setShowTrailer(true);
-          }, 1200);
-        }
-      } catch (error) {
-        console.error("Error fetching trailer:", error);
-      }
-    }
+    // const updatedMovie = { ...movie, date: movie.release_date };
+    setHoveredMovie(movie);
+
+    // if (movie && movie.id) {
+    //   try {
+    //     const response = await fetchTrailer(movie.id);
+    //     if (response && response.results && response.results.length > 0) {
+    //       const trailerKey = response.results[0].key;
+    //       setTrailerUrl(trailerKey);
+    //       setTimeout(() => {
+    //         setShowTrailer(true);
+    //       }, 1200);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching trailer:", error);
+    //   }
+    // }
   };
 
   const handleMouseLeave = () => {
@@ -151,11 +154,12 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
                     {hoveredMovie && hoveredMovie.id === movie.id && (
                       <div className="hover">
                         {showTrailer ? (
-                          <Trailer
-                            videoKey={trailerUrl}
-                            title={hoveredMovie.title}
-                            date={hoveredMovie.release_date}
-                          />
+                          // <Trailer
+                          //   videoKey={trailerUrl}
+                          //   title={hoveredMovie.title}
+                          //   date={hoveredMovie.release_date}
+                          // />
+                          ""
                         ) : (
                           <div className="image_video_container">
                             <img

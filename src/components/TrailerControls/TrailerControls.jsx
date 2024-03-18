@@ -7,18 +7,23 @@ import {
   RiThumbUpLine,
 } from "@remixicon/react";
 import MovieDetail from "../MovieDetail/MovieDetail";
-import { MovieDetailContext } from "../../Context/MovieDetail.context";
+import { MovieContext } from "../../Context/MovieDetail.context";
 
-const TrailerControls = ({ title, date, videoKey }) => {
-  const { movieDetail, setMovieDetail } = useContext(MovieDetailContext);
+const TrailerControls = ({ title, date, videoKey, movie }) => {
+  const { movieDetail, setMovieDetail, setShowTrailer } =
+    useContext(MovieContext);
 
   const handlePlayClick = () => {
+    // setShowTrailer(false);
     if (videoKey) {
       window.open(`https://www.youtube.com/watch?v=${videoKey}`, "_blank");
     }
   };
 
-  const toggleDetailPopUp = () => setMovieDetail(true);
+  const toggleDetailPopUp = () => {
+    setMovieDetail(true);
+    setShowTrailer(false);
+  };
 
   const handleWindowBlur = () => {
     window.removeEventListener("blur", handleWindowBlur);
@@ -37,11 +42,13 @@ const TrailerControls = ({ title, date, videoKey }) => {
         />
         <RiAddLine className="trailer_icon" color="white" />
         <RiThumbUpLine className="trailer_icon" color="white" />
+
         <RiThumbDownLine
           className="trailer_icon"
           color="white"
           onClick={toggleDetailPopUp}
         />
+
         <h5>{title} </h5>
         <h6>Release Date: {date}</h6>
       </div>

@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import LoginScreen from "./components/LoginScreen/LoginScreen";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./utils/firebase";
+import MovieDetail from "./components/MovieDetail/MovieDetail";
 function App() {
   const [user, setUser] = useState(null);
 

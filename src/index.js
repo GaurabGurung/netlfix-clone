@@ -6,7 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import { MovieDetailProvider } from "./Context/MovieDetail.context";
+import { MovieProvider } from "./Context/MovieDetail.context";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -15,9 +15,9 @@ root.render(
   <BrowserRouter>
     <React.StrictMode>
       <Provider store={store}>
-        <MovieDetailProvider>
+        <MovieProvider>
           <App />
-        </MovieDetailProvider>
+        </MovieProvider>
       </Provider>
     </React.StrictMode>
   </BrowserRouter>

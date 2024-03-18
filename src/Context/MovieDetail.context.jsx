@@ -1,17 +1,28 @@
 import { createContext, useState } from "react";
 
-export const MovieDetailContext = createContext({
+export const MovieContext = createContext({
   movieDetail: false,
   setMovieDetail: () => {},
+  showTrailer: false,
+  setShowTrailer: () => {},
+  hoveredMovie: false,
+  setHoveredMovie: () => {},
 });
 
-export const MovieDetailProvider = ({ children }) => {
+export const MovieProvider = ({ children }) => {
   const [movieDetail, setMovieDetail] = useState(false);
-  const value = { movieDetail, setMovieDetail };
+  const [showTrailer, setShowTrailer] = useState(false);
+  const [hoveredMovie, setHoveredMovie] = useState(null);
+  const value = {
+    movieDetail,
+    setMovieDetail,
+    showTrailer,
+    setShowTrailer,
+    setHoveredMovie,
+    hoveredMovie,
+  };
 
   return (
-    <MovieDetailContext.Provider value={value}>
-      {children}
-    </MovieDetailContext.Provider>
+    <MovieContext.Provider value={value}>{children}</MovieContext.Provider>
   );
 };
