@@ -10,11 +10,10 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
   const [hoveredMovie, setHoveredMovie] = useState(null);
   const [trailerUrl, setTrailerUrl] = useState("");
   const [showTrailer, setShowTrailer] = useState(false);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const listRef = useRef();
   const [sliderPosition, setSliderPosition] = useState(0);
   const [showDirection, setShowDirection] = useState(false);
 
+  const listRef = useRef();
   const base_url = "https://image.tmdb.org/t/p/original/";
 
   useEffect(() => {
@@ -115,7 +114,7 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
         {showDirection && (
           <>
             <button
-              className={`left_btn ${scrollLeft === 0 ? "hidden" : ""}`}
+              className={`left_btn `}
               onClick={() => handleDirection("left")}
             >
               <RiArrowLeftLine />

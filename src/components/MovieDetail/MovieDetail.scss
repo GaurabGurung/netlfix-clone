@@ -9,19 +9,29 @@
   align-items: center; /* Center vertically */
   background: #000000b1;
   z-index: 5;
-}
 
-.movie_popup {
-  position: fixed;
-  width: 900px;
-  height: 1yarn00vh;
-  background-color: white;
-  padding: 20px;
-  z-index: 5;
-  top: 80px;
-  border-radius: 5px;
-  overflow-y: auto;
-  h2 {
-    color: black;
+  .close_icon {
+    position: fixed;
+    top: 100px;
+    right: 380px;
+    padding: 10px;
+    background-color: rgb(87, 85, 85);
+    border-radius: 100px;
+    z-index: 6;
+  }
+
+  .movie_popup {
+    position: fixed;
+    width: 900px;
+    height: 1yarn00vh;
+    background-color: white;
+    padding: 20px;
+    z-index: 5;
+    top: 80px;
+    border-radius: 5px;
+    overflow-y: auto;
+    h2 {
+      color: black;
+    }
   }
 }

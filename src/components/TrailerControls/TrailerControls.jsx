@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./TrailerControls.scss";
 import {
   RiAddLine,
@@ -7,16 +7,18 @@ import {
   RiThumbUpLine,
 } from "@remixicon/react";
 import MovieDetail from "../MovieDetail/MovieDetail";
+import { MovieDetailContext } from "../../Context/MovieDetail.context";
 
 const TrailerControls = ({ title, date, videoKey }) => {
-  const [showMovieDetail, setShowMovieDetail] = useState(false);
+  const { movieDetail, setMovieDetail } = useContext(MovieDetailContext);
+
   const handlePlayClick = () => {
     if (videoKey) {
       window.open(`https://www.youtube.com/watch?v=${videoKey}`, "_blank");
     }
   };
 
-  const toggleDetailPopUp = () => setShowMovieDetail(!showMovieDetail);
+  const toggleDetailPopUp = () => setMovieDetail(true);
 
   const handleWindowBlur = () => {
     window.removeEventListener("blur", handleWindowBlur);
@@ -43,7 +45,7 @@ const TrailerControls = ({ title, date, videoKey }) => {
         <h5>{title} </h5>
         <h6>Release Date: {date}</h6>
       </div>
-      {showMovieDetail && <MovieDetail />}
+      {movieDetail && <MovieDetail />}
     </>
   );
 };

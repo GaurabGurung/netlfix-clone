@@ -105,28 +105,31 @@
     .right_btn {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
+
       background: transparent;
       border: none;
       font-size: 24px;
       color: white;
       cursor: pointer;
       z-index: 4;
-      transition: opacity 0.3s;
-      height: 100%;
+      transition: opacity 0.3s, transform 0.3s;
+      padding: 10px;
       background-color: rgba(6, 6, 6, 0.761);
+      width: 50px;
+      border-radius: 100px;
 
       &:hover {
         opacity: 0.8;
+        transform: scale(1.5);
       }
     }
 
     .left_btn {
-      left: -18px;
+      left: -20px;
     }
 
     .right_btn {
-      right: -18px;
+      right: -20px;
     }
   }
 
@@ -181,12 +184,3 @@
 //     }
 //   }
 // }
-
-.row_container .wrapper .row__posters .row__poster_wrapper .hover {
-  width: 25rem;
-  left: -50px; /* Initial left position */
-}
-
-.row_container .wrapper .row__posters .row__poster_wrapper {
-  position: relative;
-}
