@@ -1,31 +1,41 @@
 .trailer_controls {
   background-color: rgb(27, 25, 25);
   height: 140px;
-  padding-left: 20px;
-  padding-top: 5px;
+  padding: 0 20px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  .icons {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    .trailer_icon {
+      background-color: transparent;
+      border: 1px solid white;
+      border-radius: 100px;
+      padding: 5px;
+      margin: 5px;
+      margin-bottom: 7px;
+      margin-top: 10px;
+    }
 
-  .trailer_icon {
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 100px;
-    padding: 5px;
-    margin: 5px;
-    margin-bottom: 7px;
-    margin-top: 10px;
-  }
-
-  .trailer_play_icon {
-    background-color: white;
-    border: 1px solid white;
-    border-radius: 100px;
-    padding: 5px;
-    margin: 5px;
-    margin-bottom: 7px;
+    .trailer_play_icon {
+      background-color: white;
+      border: 1px solid white;
+      border-radius: 100px;
+      padding: 5px;
+      margin: 5px;
+      margin-bottom: 7px;
+    }
+    .left {
+      margin-left: auto;
+    }
   }
 
   h5 {
     color: #fff;
     margin-left: 10px;
+    font-size: 1.5rem;
   }
 
   h6 {

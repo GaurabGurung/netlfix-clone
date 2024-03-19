@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import "./TrailerControls.scss";
 import {
   RiAddLine,
+  RiInfoI,
   RiPlayFill,
   RiThumbDownLine,
   RiThumbUpLine,
@@ -10,7 +11,7 @@ import MovieDetail from "../MovieDetail/MovieDetail";
 import { MovieContext } from "../../Context/MovieDetail.context";
 
 const TrailerControls = ({ title, date, videoKey, movie }) => {
-  const { movieDetail, setMovieDetail, setShowTrailer } =
+  const { movieDetail, setMovieDetail, setShowTrailer, setHoveredMovie } =
     useContext(MovieContext);
 
   const handlePlayClick = () => {
@@ -23,6 +24,7 @@ const TrailerControls = ({ title, date, videoKey, movie }) => {
   const toggleDetailPopUp = () => {
     setMovieDetail(true);
     setShowTrailer(false);
+    setHoveredMovie(null);
   };
 
   const handleWindowBlur = () => {
@@ -35,24 +37,31 @@ const TrailerControls = ({ title, date, videoKey, movie }) => {
   return (
     <>
       <div className="trailer_controls">
-        <RiPlayFill
-          className="trailer_play_icon"
-          color="black"
-          onClick={handlePlayClick}
-        />
-        <RiAddLine className="trailer_icon" color="white" />
-        <RiThumbUpLine className="trailer_icon" color="white" />
+        <div className="icons">
+          <RiPlayFill
+            className="trailer_play_icon"
+            color="black"
+            onClick={handlePlayClick}
+          />
+          <RiAddLine className="trailer_icon" color="white" />
+          <RiThumbUpLine className="trailer_icon" color="white" />
 
-        <RiThumbDownLine
-          className="trailer_icon"
-          color="white"
-          onClick={toggleDetailPopUp}
-        />
-
-        <h5>{title} </h5>
-        <h6>Release Date: {date}</h6>
+          <RiThumbDownLine
+            className="trailer_icon"
+            color="white"
+            onClick={toggleDetailPopUp}
+          />
+          <RiInfoI
+            className="trailer_icon left"
+            color="white"
+            onClick={toggleDetailPopUp}
+          />
+        </div>
+        <div className="info">
+          <h5>{title} </h5>
+          <h6>Release Date: {date}</h6>
+        </div>
       </div>
-      {movieDetail && <MovieDetail />}
     </>
   );
 };

@@ -4,7 +4,7 @@ import { RiCloseLine } from "@remixicon/react";
 import { MovieContext } from "../../Context/MovieDetail.context";
 
 const MovieDetail = () => {
-  const { movieDetail, setMovieDetail } = useContext(MovieContext);
+  const { setMovieDetail } = useContext(MovieContext);
 
   return (
     <div className="movieDetails_container">

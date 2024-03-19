@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+import "./App.scss";
 import HomeScreen from "./components/HomeScreen/HomeScreen";
 import { Route, Routes } from "react-router-dom";
 import LoginScreen from "./components/LoginScreen/LoginScreen";

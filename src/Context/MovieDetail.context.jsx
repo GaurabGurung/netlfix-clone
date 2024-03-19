@@ -5,7 +5,7 @@ export const MovieContext = createContext({
   setMovieDetail: () => {},
   showTrailer: false,
   setShowTrailer: () => {},
-  hoveredMovie: false,
+  hoveredMovie: null,
   setHoveredMovie: () => {},
 });
 
