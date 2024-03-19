@@ -7,8 +7,13 @@ import TrailerControls from "../TrailerControls/TrailerControls";
 import { MovieContext } from "../../Context/MovieDetail.context";
 
 const Row = ({ title, fetchUrl, isLargeRow = false }) => {
-  const { showTrailer, setShowTrailer, hoveredMovie, setHoveredMovie } =
-    useContext(MovieContext);
+  const {
+    showTrailer,
+    setShowTrailer,
+    hoveredMovie,
+    setHoveredMovie,
+    setTargetedMovie,
+  } = useContext(MovieContext);
 
   const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState("");
@@ -47,6 +52,7 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
   const handleMouseEnter = async (movie) => {
     const updatedMovie = { ...movie, date: movie.release_date };
     setHoveredMovie(movie);
+    setTargetedMovie(movie);
 
     if (movie && movie.id) {
       try {

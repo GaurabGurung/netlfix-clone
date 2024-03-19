@@ -7,7 +7,6 @@ import {
   RiThumbDownLine,
   RiThumbUpLine,
 } from "@remixicon/react";
-import MovieDetail from "../MovieDetail/MovieDetail";
 import { MovieContext } from "../../Context/MovieDetail.context";
 
 const TrailerControls = ({ title, date, videoKey, movie }) => {
@@ -45,12 +44,7 @@ const TrailerControls = ({ title, date, videoKey, movie }) => {
           />
           <RiAddLine className="trailer_icon" color="white" />
           <RiThumbUpLine className="trailer_icon" color="white" />
-
-          <RiThumbDownLine
-            className="trailer_icon"
-            color="white"
-            onClick={toggleDetailPopUp}
-          />
+          <RiThumbDownLine className="trailer_icon" color="white" />
           <RiInfoI
             className="trailer_icon left"
             color="white"

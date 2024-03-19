@@ -3,21 +3,21 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #0000007a;
-  z-index: 5;
+  background: #000000a3;
+  z-index: 50;
 
   .close_icon {
     position: fixed;
     top: 40px;
-    right: 280px;
+    right: 20%;
     padding: 10px;
-    background-color: rgb(87, 85, 85);
+    background-color: rgb(110, 109, 109);
     border-radius: 100px;
-    z-index: 6;
+    z-index: 7;
     cursor: pointer;
     &:hover {
       background-color: black;
@@ -26,17 +26,126 @@
 
   .movie_popup {
     position: fixed;
-    width: 900px;
-    height: 100%;
+    max-width: 900px;
+    height: 95%;
     background-color: white;
-    padding: 20px;
-    z-index: 5;
-    top: 20px;
+    z-index: 6;
+    top: 30px;
+    background-color: #111111;
     overflow-y: auto;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     h2 {
       color: black;
     }
+
+    .poster {
+      position: relative;
+      width: 100%;
+      height: 70%;
+      background-size: cover;
+      background-position: center;
+
+      .icons {
+        bottom: 90px;
+        left: 50px;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        z-index: 1;
+        .play_icon {
+          padding: 10px 15px;
+          background-color: #fff;
+          width: 100px;
+          border-radius: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          gap: 10px;
+          cursor: pointer;
+        }
+        .icon {
+          width: 30px;
+          height: 30px;
+          border: 1px solid #fff;
+          padding: 5px;
+          border-radius: 99px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &:hover {
+            opacity: 0.3;
+            cursor: pointer;
+          }
+        }
+        .play_icon:hover {
+          opacity: 0.3;
+          cursor: pointer;
+        }
+      }
+
+      .banner--fadeBottom {
+        position: absolute;
+        height: 200px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: linear-gradient(
+          180deg,
+          transparent,
+          rgba(22, 21, 21, 0.61),
+          #111
+        );
+      }
+    }
+    .movie_details {
+      padding: 10px 50px;
+      display: flex;
+      flex-direction: column;
+      min-height: 30%;
+      gap: 20px;
+      margin-bottom: 50px;
+      h1 {
+        color: #fff;
+      }
+      span {
+        color: #aaa7a7;
+
+        font-weight: normal;
+        font-size: 1rem;
+      }
+      p {
+        color: #fff;
+        letter-spacing: 1px;
+        font-weight: 200;
+      }
+      h6,
+      h5 {
+        color: #fff;
+        font-size: 1rem;
+      }
+
+      .genre_list {
+        margin: 0;
+        li {
+          color: #fff;
+          font-weight: normal;
+          display: inline-block;
+          margin-right: 5px;
+          color: white;
+        }
+      }
+
+      .genre_list li:before {
+        content: "•      ";
+        margin-left: 5px;
+      }
+    }
   }
-}
-.modal_is_open {
 }
