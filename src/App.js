@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
-import HomeScreen from "./components/HomeScreen/HomeScreen";
+
 import { Route, Routes } from "react-router-dom";
-import LoginScreen from "./components/LoginScreen/LoginScreen";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./utils/firebase";
-import MovieDetail from "./components/MovieDetail/MovieDetail";
+import { useDispatch, useSelector } from "react-redux";
+
+import { logout, login, selectUser } from "./redux/user/user.reducer";
+import HomeScreen from "./components/HomeScreen/HomeScreen";
+import LoginScreen from "./components/LoginScreen/LoginScreen";
+import ProfileScreen from "./components/ProfileScreen/ProfileScreen";
 function App() {
-  const [user, setUser] = useState(null);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const unsubscribe = () =>
       onAuthStateChanged(auth, (user) => {
         if (user) {
           console.log(user);
-          setUser(user);
+          dispatch(
+            login({
+              uid: user.uid,
+              email: user.email,
+            })
+          );
         } else {
-          setUser(null);
-          console.log("user not logged in");
+          dispatch(logout);
         }
       });
     return () => unsubscribe();
@@ -28,6 +37,7 @@ function App() {
         <LoginScreen />
       ) : (
         <Routes>
+          <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/" element={<HomeScreen />} />
         </Routes>
       )}

@@ -3,6 +3,7 @@ import "./Nav.scss";
 import MaxflixLogo from "../../assets/maxflix.png";
 import { Link } from "react-router-dom";
 import { RiSearchLine } from "@remixicon/react";
+import profileLogo from "../../assets/profile.jpg";
 
 const Nav = () => {
   const [show, handleShow] = useState(false);
@@ -31,7 +32,9 @@ const Nav = () => {
   return (
     <div className={`nav__container ${show && "nav_black"}`}>
       <div className="nav_content">
-        <img className="nav_logo" src={MaxflixLogo} alt="Netflix logo" />
+        <Link to="/">
+          <img className="nav_logo" src={MaxflixLogo} alt="Netflix logo" />
+        </Link>
         {/* <img
           className="nav_avatar"
           src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
@@ -71,7 +74,10 @@ const Nav = () => {
             />
           </div>
         </div>
-        <button className="logout__btn">Log Out</button>
+        {/* <button className="logout__btn">Log Out</button> */}
+        <Link to="/profile">
+          <img src={profileLogo} alt="" className="profile_icon" />
+        </Link>
       </div>
     </div>
   );

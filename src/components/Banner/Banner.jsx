@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Banner.scss";
 import axios from "../../utils/axios";
 import requests from "../../utils/Request";
 import { RiInformationLine, RiPlayFill } from "@remixicon/react";
 import { useNavigate } from "react-router-dom";
+import { MovieContext } from "../../Context/MovieDetail.context";
 
 const Banner = () => {
-  const [movie, setMovie] = useState(null); // Initialize movie state to null
+  const [movie, setMovie] = useState(null);
+  const { setTargetedMovie, setMovieDetail } = useContext(MovieContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,7 +68,12 @@ const Banner = () => {
             <RiPlayFill />
             Play
           </button>
-          <button className="banner__button">
+          <button
+            className="banner__button"
+            onMouseEnter={() => setTargetedMovie(movie)}
+            onMouseLeave={() => setTargetedMovie(false)}
+            onClick={() => setMovieDetail(true)}
+          >
             <RiInformationLine />
             More Info
           </button>
