@@ -14,7 +14,6 @@ const TrailerControls = ({ title, date, videoKey, movie }) => {
     useContext(MovieContext);
 
   const handlePlayClick = () => {
-    // setShowTrailer(false);
     if (videoKey) {
       window.open(`https://www.youtube.com/watch?v=${videoKey}`, "_blank");
     }
@@ -28,7 +27,6 @@ const TrailerControls = ({ title, date, videoKey, movie }) => {
 
   const handleWindowBlur = () => {
     window.removeEventListener("blur", handleWindowBlur);
-    // Simulate mouse leave event to hide trailer and reset state
     const event = new Event("mouseleave");
     document.dispatchEvent(event);
   };

@@ -1,6 +1,6 @@
 const tmdbAPI = `8c97e4147e037337c7e362100f2286f2`;
 
-const requests = {
+const requestsMovies = {
   fetchTopRatedMovies: `/movie/top_rated?api_key=${tmdbAPI}&language=en-US&page=1`,
   fetchTrendingMovies: `/movie//trending/movie/day?api_key=${tmdbAPI}&language=en-US&page=1`,
   fetchPopularMovies: `/movie/popular?api_key=${tmdbAPI}&language=en-US&page=1`,
@@ -24,4 +24,4 @@ const requests = {
   fetchWesternMovies: `/discover/movie?api_key=${tmdbAPI}&with_genres=37`,
 };
 
-export default requests;
+export default requestsMovies;

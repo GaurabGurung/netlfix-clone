@@ -10,6 +10,8 @@ import { logout, login, selectUser } from "./redux/user/user.reducer";
 import HomeScreen from "./components/HomeScreen/HomeScreen";
 import LoginScreen from "./components/LoginScreen/LoginScreen";
 import ProfileScreen from "./components/ProfileScreen/ProfileScreen";
+import TvShows from "./components/TvShows/TvShows";
+import Movies from "./components/Movies/Movie";
 function App() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
@@ -39,6 +41,8 @@ function App() {
         <Routes>
           <Route path="/profile" element={<ProfileScreen />} />
           <Route path="/" element={<HomeScreen />} />
+          <Route path="/tvshows" element={<TvShows />} />
+          <Route path="/movies" element={<Movies />} />
         </Routes>
       )}
     </div>

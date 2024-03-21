@@ -10,7 +10,7 @@ import { MovieContext } from "../../Context/MovieDetail.context";
 import { genres } from "../../utils/data/genre";
 
 const MovieDetail = () => {
-  const { setMovieDetail, hoveredMovie, targetedMovie } =
+  const { setMovieDetail, hoveredMovie, targetedMovie, hoveredShow } =
     useContext(MovieContext);
 
   const base_url = "https://image.tmdb.org/t/p/original/";
@@ -52,14 +52,24 @@ const MovieDetail = () => {
           <div className="banner--fadeBottom " />
         </div>
         <div className="movie_details">
-          <h1>{targetedMovie.title}</h1>
+          <h1>
+            {`${targetedMovie.name || targetedMovie.title}`}{" "}
+            <span>
+              {targetedMovie.release_date
+                ? new Date(targetedMovie.release_date).getFullYear()
+                : targetedMovie.first_air_date
+                ? new Date(targetedMovie.first_air_date).getFullYear()
+                : "Unknown"}
+            </span>
+            <span className="quality">HD</span>
+          </h1>
           <span>Rating: {targetedMovie.vote_average.toFixed(1)}</span>
-          <h5>Release Date: {targetedMovie.release_date}</h5>
-          <ul className="genre_list">
+          <h3 className="genre_list">
+            Genres :{" "}
             {targetedMovie.genre_ids.map((genreId) => (
-              <li key={genreId}>{getGenreName(genreId)} </li>
+              <h3 key={genreId}> {getGenreName(genreId)} </h3>
             ))}
-          </ul>
+          </h3>
 
           <p>{targetedMovie.overview}</p>
         </div>

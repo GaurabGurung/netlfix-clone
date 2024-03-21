@@ -1,0 +1,14 @@
+.homeScreen {
+  // position: fixed;
+  overflow: hidden;
+  background-color: #111;
+  height: 100%;
+
+  .rows_container {
+    margin: 0 20px;
+  }
+}
+.freeze-background-home-screen {
+  overflow: hidden;
+  padding-right: 15px;
+}

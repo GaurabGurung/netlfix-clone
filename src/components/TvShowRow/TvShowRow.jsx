@@ -1,21 +1,28 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
-import "./Row.scss";
-import axios from "../../utils/axios";
-import Trailer from "../Trailer/Trailer";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useContext,
+  useCallback,
+} from "react";
+import "./TvShowRow.scss";
+import axios from "../../utils/axios.js";
+import Trailer from "../Trailer/Trailer.jsx";
 import { RiArrowLeftLine, RiArrowRightLine } from "@remixicon/react";
 import TrailerControls from "../TrailerControls/TrailerControls";
 import { MovieContext } from "../../Context/MovieDetail.context";
 
-const Row = ({ title, fetchUrl, isLargeRow = false }) => {
+const TvShowRow = ({ title, fetchUrl, isLargeRow = false }) => {
   const {
     showTrailer,
     setShowTrailer,
-    hoveredMovie,
-    setHoveredMovie,
+    hoveredShow,
+    setHoveredShow,
     setTargetedMovie,
+    targetedMovie,
   } = useContext(MovieContext);
 
-  const [movies, setMovies] = useState([]);
+  const [shows, setShows] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState("");
   const [sliderPosition, setSliderPosition] = useState(0);
   const [showDirection, setShowDirection] = useState(false);
@@ -26,13 +33,13 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
   useEffect(() => {
     const fetchData = async () => {
       const request = await axios.get(fetchUrl);
-      setMovies(request.data.results);
+      setShows(request.data.results);
       return request;
     };
     fetchData();
   }, [fetchUrl]);
 
-  const fetchTrailer = async (movieId) => {
+  const fetchTrailer = async (showId) => {
     const options = {
       method: "GET",
       headers: {
@@ -43,38 +50,41 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
     };
 
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
+      `https://api.themoviedb.org/3/tv/${showId}/videos?language=en-US`,
       options
     );
     return response.json();
   };
 
-  const handleMouseEnter = async (movie) => {
-    const updatedMovie = { ...movie, date: movie.release_date };
-    setHoveredMovie(movie);
-    setTargetedMovie(movie);
+  const handleMouseEnter = useCallback(
+    async (show) => {
+      const updatedShow = { ...show, date: show.first_air_date };
+      setHoveredShow(show);
+      setTargetedMovie(show);
 
-    if (movie && movie.id) {
-      try {
-        const response = await fetchTrailer(movie.id);
-        if (response && response.results && response.results.length > 0) {
-          const trailerKey = response.results[0].key;
-          setTrailerUrl(trailerKey);
-          setTimeout(() => {
-            setShowTrailer(true);
-          }, 1200);
+      if (show && show.id) {
+        try {
+          const response = await fetchTrailer(show.id);
+          if (response && response.results && response.results.length > 0) {
+            const trailerKey = response.results[0].key;
+            setTrailerUrl(trailerKey);
+            setTimeout(() => {
+              setShowTrailer(true);
+            }, 1200);
+          }
+        } catch (error) {
+          console.error("Error fetching trailer:", error);
         }
-      } catch (error) {
-        console.error("Error fetching trailer:", error);
       }
-    }
-  };
+    },
+    [setHoveredShow, setTargetedMovie, setShowTrailer]
+  );
 
-  const handleMouseLeave = () => {
-    setHoveredMovie(null);
+  const handleMouseLeave = useCallback(() => {
+    setHoveredShow(null);
     setTrailerUrl("");
     setShowTrailer(false);
-  };
+  }, [setHoveredShow, setShowTrailer]);
 
   useEffect(() => {
     const handleWindowBlur = () => {
@@ -85,12 +95,12 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
     return () => {
       window.removeEventListener("blur", handleWindowBlur);
     };
-  }, []);
+  }, [handleMouseLeave]);
 
   const handleDirection = (direction) => {
     const distance = listRef.current.offsetWidth;
-    const moviesPerSlide = 6;
-    const totalSlides = Math.ceil(movies.length / moviesPerSlide);
+    const showsPerSlide = 6;
+    const totalSlides = Math.ceil(shows.length / showsPerSlide);
     let newPosition;
 
     if (direction === "left") {
@@ -114,7 +124,7 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
 
   return (
     <div
-      className="row_container"
+      className="tv_show_row_container"
       onMouseEnter={() => setShowDirection(true)}
       onMouseLeave={() => setShowDirection(false)}
     >
@@ -137,36 +147,33 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
           </>
         )}
         <div className="row__posters" ref={listRef}>
-          {movies.map(
-            (movie) =>
-              ((isLargeRow && movie.poster_path) ||
-                (!isLargeRow && movie.backdrop_path)) && (
+          {shows.map(
+            (show) =>
+              ((isLargeRow && show.poster_path) ||
+                (!isLargeRow && show.backdrop_path)) && (
                 <div
-                  key={movie.id}
+                  key={show.id}
                   className="row__poster_wrapper"
-                  onMouseEnter={() => handleMouseEnter(movie)}
+                  onMouseEnter={() => handleMouseEnter(show)}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="movie_content">
+                  <div className="show_content">
                     <img
                       className={`row__poster ${
                         isLargeRow && "row__posterLarge"
                       }`}
                       src={`${base_url}${
-                        isLargeRow ? movie.poster_path : movie.backdrop_path
+                        isLargeRow ? show.poster_path : show.backdrop_path
                       }`}
-                      alt={movie.title}
+                      alt={show.name}
                     />
-                    {hoveredMovie && hoveredMovie.id === movie.id && (
+                    {hoveredShow && hoveredShow.id === show.id && (
                       <div className="hover">
                         {showTrailer ? (
                           <Trailer
                             videoKey={trailerUrl}
-                            title={hoveredMovie.title}
-                            date={
-                              hoveredMovie.release_date ||
-                              hoveredMovie.first_air_date
-                            }
+                            title={hoveredShow.title}
+                            date={hoveredShow.first_air_date}
                           />
                         ) : (
                           <div className="image_video_container">
@@ -176,21 +183,17 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
                               }`}
                               src={`${base_url}${
                                 isLargeRow
-                                  ? movie.poster_path
-                                  : movie.backdrop_path
+                                  ? show.poster_path
+                                  : show.backdrop_path
                               }`}
-                              alt={movie.name}
+                              alt={show.name}
                             />
                           </div>
                         )}
                         <TrailerControls
-                          title={hoveredMovie.title}
+                          title={hoveredShow.name}
                           videoKey={trailerUrl}
-                          movie={movie}
-                          date={`${
-                            hoveredMovie.first_air_date ||
-                            hoveredMovie.release_date
-                          }`}
+                          date={show.first_air_date}
                         />
                       </div>
                     )}
@@ -204,4 +207,4 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
   );
 };
 
-export default Row;
+export default TvShowRow;
