@@ -44,10 +44,7 @@ const Movies = () => {
           title="Thriller Movies"
           fetchUrl={requestsMovies.fetchThrillerMovies}
         />
-        <Row
-          title="Comedy Movies"
-          fetchUrl={requestsMovies.fetchComedyMovies}
-        />
+
         <Row
           title="Romantic Movies"
           fetchUrl={requestsMovies.fetchRomanceMovies}

@@ -19,8 +19,13 @@ import {
 
 const TrailerControls = ({ media }) => {
   const [mediaIsSelected, setMediaIsSelected] = useState(false);
-  const { setMovieDetail, setShowTrailer, setHoveredMovie, targetedMovie } =
-    useContext(MovieContext);
+  const {
+    setMovieDetail,
+    setShowTrailer,
+    setHoveredMovie,
+    targetedMovie,
+    videoLink,
+  } = useContext(MovieContext);
 
   const dispatch = useDispatch();
   const myListArray = useSelector(selectMyList);
@@ -48,11 +53,8 @@ const TrailerControls = ({ media }) => {
   };
 
   const handlePlayClick = () => {
-    if (media.videoKey) {
-      window.open(
-        `https://www.youtube.com/watch?v=${media.videoKey}`,
-        "_blank"
-      );
+    if (videoLink) {
+      window.open(videoLink, "_blank");
     }
   };
 
@@ -100,11 +102,11 @@ const TrailerControls = ({ media }) => {
       </div>
       <div className="info">
         <h5>{targetedMovie.title || targetedMovie.name}</h5>
-        <h6 className="genre_list">
+        <h5 className="genre_list">
           {targetedMovie.genre_ids.map((genreId) => (
-            <h6 key={genreId}> {getGenreName(genreId)} </h6>
+            <p key={genreId}> {getGenreName(genreId)} </p>
           ))}
-        </h6>
+        </h5>
       </div>
     </div>
   );

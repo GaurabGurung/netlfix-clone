@@ -11,6 +11,8 @@ export const MovieContext = createContext({
   setTargetedMovie: () => {},
   hoveredShow: null,
   setHoveredShow: () => {},
+  setVideoLink: () => {},
+  videoLink: "",
 });
 
 export const MovieProvider = ({ children }) => {
@@ -19,6 +21,7 @@ export const MovieProvider = ({ children }) => {
   const [hoveredMovie, setHoveredMovie] = useState(null);
   const [targetedMovie, setTargetedMovie] = useState({});
   const [hoveredShow, setHoveredShow] = useState(null);
+  const [videoLink, setVideoLink] = useState(null);
 
   const value = {
     movieDetail,
@@ -31,6 +34,8 @@ export const MovieProvider = ({ children }) => {
     targetedMovie,
     setHoveredShow,
     hoveredShow,
+    videoLink,
+    setVideoLink,
   };
 
   return (

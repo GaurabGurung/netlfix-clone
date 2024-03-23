@@ -25,6 +25,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    padding: 0 40px;
 
     height: 100%;
 
@@ -35,13 +36,6 @@
       margin-right: 10px;
       cursor: pointer;
       width: calc((100% - 40px) / 6.05);
-
-      // &:nth-child(6n + 1) > img:hover {
-      //   transform: translateX(-25px) translateY(-55px) translateY(0px)
-      //     scaleX(1) scaleY(1) translateZ(0px);
-      //   color: red;
-      //   height: 600px;
-      // }
 
       @media screen and (max-width: 1200px) {
         width: calc((100% - 40px) / 5);
@@ -58,11 +52,6 @@
       @media screen and (max-width: 600px) {
         width: calc((100% - 40px) / 2);
       }
-
-      // &:nth-last-child(-n + 2) {
-      //   flex: 1 0 auto;
-      //   max-width: none;
-      // }
 
       .movie_content {
         position: relative;

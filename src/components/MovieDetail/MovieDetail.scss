@@ -19,19 +19,19 @@
     background: #000000a3;
   }
 
-  .close_icon {
-    position: fixed;
-    top: 40px;
-    right: 20%;
-    padding: 10px;
-    background-color: rgb(110, 109, 109);
-    border-radius: 100px;
-    z-index: 99;
-    cursor: pointer;
-    &:hover {
-      background-color: black;
-    }
-  }
+  // .close_icon {
+  //   position: fixed;
+  //   top: 40px;
+  //   right: 20%;
+  //   padding: 10px;
+  //   background-color: rgb(110, 109, 109);
+  //   border-radius: 100px;
+  //   z-index: 99;
+  //   cursor: pointer;
+  //   &:hover {
+  //     background-color: black;
+  //   }
+  // }
 
   .movie_popup {
     position: fixed;

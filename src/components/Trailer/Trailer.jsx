@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import "./Trailer.scss";
-import TrailerControls from "../TrailerControls/TrailerControls";
 import { RiVolumeMuteLine, RiVolumeUpLine } from "@remixicon/react";
+import { MovieContext } from "../../Context/MovieDetail.context";
 
 const Trailer = ({ videoKey, title, date }) => {
   const [muted, setMuted] = useState(true);
+  const { setVideoLink, targetedMovie } = useContext(MovieContext);
 
   const handleToggleMute = () => {
     setMuted((prevMuted) => !prevMuted);
   };
 
   const youtubeUrl = `https://www.youtube.com/embed/${videoKey}`;
-
+  const youtubeLink = `https://www.youtube.com/watch?v=${videoKey}`;
+  useEffect(() => {
+    setVideoLink(youtubeLink);
+  }, [youtubeLink, targetedMovie]);
   return (
     <div className="trailer_container">
       <ReactPlayer
