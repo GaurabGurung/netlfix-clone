@@ -1,38 +1,51 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
-import "./Row.scss";
-import axios from "../../utils/axios";
-import Trailer from "../Trailer/Trailer";
-import { RiArrowLeftLine, RiArrowRightLine } from "@remixicon/react";
-import TrailerControls from "../TrailerControls/TrailerControls";
+import React, { useContext, useEffect, useState } from "react";
+import "./Mylist.scss";
+import Footer from "../Footer/Footer";
+import { useSelector } from "react-redux";
+import { selectMyList } from "../../redux/myList/myList.reducer";
 import { MovieContext } from "../../Context/MovieDetail.context";
+import TrailerControls from "../TrailerControls/TrailerControls";
+import Trailer from "../Trailer/Trailer";
+import MovieDetail from "../MovieDetail/MovieDetail";
+const Mylist = () => {
+  const mylist = useSelector(selectMyList);
+  const isLargeRow = false;
+  console.log(mylist);
 
-const Row = ({ title, fetchUrl, isLargeRow = false }) => {
+  const { movieDetail } = useContext(MovieContext);
+
   const {
     showTrailer,
     setShowTrailer,
     hoveredMovie,
     setHoveredMovie,
     setTargetedMovie,
+    targetedMovie,
+    setHoveredShow,
+    hoveredShow,
   } = useContext(MovieContext);
 
-  const [movies, setMovies] = useState([]);
   const [trailerUrl, setTrailerUrl] = useState("");
-  const [sliderPosition, setSliderPosition] = useState(0);
-  const [showDirection, setShowDirection] = useState(false);
-
-  const listRef = useRef();
-  const base_url = "https://image.tmdb.org/t/p/original/";
+  const [base_url, setBase_Url] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      const request = await axios.get(fetchUrl);
-      setMovies(request.data.results);
-      return request;
-    };
-    fetchData();
-  }, [fetchUrl]);
+    if (targetedMovie && targetedMovie.media_type === "tv") {
+      setBase_Url("https://image.tmdb.org/t/p/original/");
+    } else {
+      setBase_Url("https://image.tmdb.org/t/p/original/");
+    }
+  }, [targetedMovie]);
 
-  const fetchTrailer = async (movieId) => {
+  const fetchTrailer = async (mediaId) => {
+    let url;
+    if (targetedMovie.media_type === "tv") {
+      url = `https://api.themoviedb.org/3/tv/${mediaId}/videos?language=en-US`;
+    } else if (!targetedMovie.media_type) {
+      url = `https://api.themoviedb.org/3/movie/${mediaId}/videos?language=en-US`;
+    } else {
+      throw new Error("Invalid media type");
+    }
+
     const options = {
       method: "GET",
       headers: {
@@ -42,10 +55,7 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
       },
     };
 
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
-      options
-    );
+    const response = await fetch(url, options);
     return response.json();
   };
 
@@ -54,9 +64,9 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
     setHoveredMovie(movie);
     setTargetedMovie(movie);
 
-    if (movie && movie.id) {
+    if (targetedMovie && targetedMovie.id) {
       try {
-        const response = await fetchTrailer(movie.id);
+        const response = await fetchTrailer(targetedMovie.id);
         if (response && response.results && response.results.length > 0) {
           const trailerKey = response.results[0].key;
           setTrailerUrl(trailerKey);
@@ -74,70 +84,19 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
     setHoveredMovie(null);
     setTrailerUrl("");
     setShowTrailer(false);
-  };
-
-  useEffect(() => {
-    const handleWindowBlur = () => {
-      handleMouseLeave();
-    };
-    window.addEventListener("blur", handleWindowBlur);
-
-    return () => {
-      window.removeEventListener("blur", handleWindowBlur);
-    };
-  }, []);
-
-  const handleDirection = (direction) => {
-    const distance = listRef.current.offsetWidth;
-    const moviesPerSlide = 6;
-    const totalSlides = Math.ceil(movies.length / moviesPerSlide);
-    let newPosition;
-
-    if (direction === "left") {
-      newPosition = sliderPosition - 1;
-      if (newPosition < 0) {
-        newPosition = totalSlides - 1;
-      }
-    } else {
-      newPosition = sliderPosition + 1;
-      if (newPosition >= totalSlides) {
-        newPosition = 0;
-      }
-    }
-
-    listRef.current.style.transition = "transform 0.5s ease-in-out";
-    listRef.current.style.transform = `translateX(${
-      -distance * newPosition
-    }px)`;
-    setSliderPosition(newPosition);
+    setTargetedMovie(null);
   };
 
   return (
-    <div
-      className="row_container"
-      onMouseEnter={() => setShowDirection(true)}
-      onMouseLeave={() => setShowDirection(false)}
-    >
-      <h2>{title}</h2>
-      <div className="wrapper">
-        {showDirection && (
-          <>
-            <button
-              className={`left_btn `}
-              onClick={() => handleDirection("left")}
-            >
-              <RiArrowLeftLine />
-            </button>
-            <button
-              className="right_btn"
-              onClick={() => handleDirection("right")}
-            >
-              <RiArrowRightLine />
-            </button>
-          </>
-        )}
-        <div className="row__posters" ref={listRef}>
-          {movies.map(
+    <div className="mylist_container">
+      <h1>My List</h1>
+      {mylist.length === 0 ? (
+        <div className="empty_text">
+          <h2>You haven't added any titles to your list yet</h2>
+        </div>
+      ) : (
+        <div className="row__posters">
+          {mylist.map(
             (movie) =>
               ((isLargeRow && movie.poster_path) ||
                 (!isLargeRow && movie.backdrop_path)) && (
@@ -164,8 +123,8 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
                             videoKey={trailerUrl}
                             title={hoveredMovie.title}
                             date={
-                              hoveredMovie.release_date ||
-                              hoveredMovie.first_air_date
+                              targetedMovie.release_date ||
+                              targetedMovie.first_air_date
                             }
                           />
                         ) : (
@@ -199,9 +158,11 @@ const Row = ({ title, fetchUrl, isLargeRow = false }) => {
               )
           )}
         </div>
-      </div>
+      )}
+      {movieDetail && <MovieDetail />}
+      <Footer />
     </div>
   );
 };
 
-export default Row;
+export default Mylist;

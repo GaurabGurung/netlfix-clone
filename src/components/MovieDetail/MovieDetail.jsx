@@ -21,10 +21,8 @@ const MovieDetail = () => {
   };
 
   return (
-    <div
-      className="movieDetails_container"
-      onClick={() => setMovieDetail(false)}
-    >
+    <div className="movieDetails_container">
+      <div className="overlay" onClick={() => setMovieDetail(false)} />
       <RiCloseLine
         color="white"
         className="close_icon"

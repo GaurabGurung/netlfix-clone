@@ -18,6 +18,9 @@
       margin-bottom: 7px;
       margin-top: 10px;
     }
+    .added_icon {
+      background-color: #fff;
+    }
 
     .trailer_play_icon {
       background-color: white;
@@ -39,10 +42,21 @@
   }
 
   h6 {
-    color: #7d7d7d;
+    color: #fff;
     margin-left: 10px;
     font-size: 0.8rem;
     margin-top: 7px;
+  }
+
+  .genre_list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    h6 {
+      font-size: 0.8rem;
+      margin-left: 0;
+      margin-right: 10px;
+    }
   }
 
   @media screen and (max-width: 768px) {

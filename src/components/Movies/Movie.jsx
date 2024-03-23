@@ -6,6 +6,7 @@ import Row from "../Row/Row";
 import requestsMovies from "../../utils/Request_Movies";
 import MovieDetail from "../MovieDetail/MovieDetail";
 import { MovieContext } from "../../Context/MovieDetail.context";
+import Footer from "../Footer/Footer";
 
 const Movies = () => {
   useEffect(() => {
@@ -69,6 +70,7 @@ const Movies = () => {
         <Row title="Drama" fetchUrl={requestsMovies.fetchDramaMovies} />
       </div>
       {movieDetail && <MovieDetail />}
+      <Footer />
     </div>
   );
 };

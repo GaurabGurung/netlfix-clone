@@ -12,6 +12,8 @@ import LoginScreen from "./components/LoginScreen/LoginScreen";
 import ProfileScreen from "./components/ProfileScreen/ProfileScreen";
 import TvShows from "./components/TvShows/TvShows";
 import Movies from "./components/Movies/Movie";
+import Mylist from "./components/Mylist/Mylist";
+import Nav from "./components/Nav/Nav";
 function App() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
@@ -38,12 +40,16 @@ function App() {
       {!user ? (
         <LoginScreen />
       ) : (
-        <Routes>
-          <Route path="/profile" element={<ProfileScreen />} />
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/tvshows" element={<TvShows />} />
-          <Route path="/movies" element={<Movies />} />
-        </Routes>
+        <>
+          <Nav />
+          <Routes>
+            <Route path="/profile" element={<ProfileScreen />} />
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/tvshows" element={<TvShows />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/mylist" element={<Mylist />} />
+          </Routes>
+        </>
       )}
     </div>
   );

@@ -1,0 +1,117 @@
+.mylist_container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+
+  h1 {
+    padding: 0 30px;
+    padding-top: 100px;
+    font-weight: normal;
+    margin-bottom: 50px;
+  }
+  .empty_text {
+    display: flex;
+    width: 100%;
+    margin-top: 100px;
+    justify-content: center;
+    h2 {
+      font-weight: 300;
+      font-size: 1rem;
+      color: #8a8585;
+    }
+  }
+  .row__posters {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+    height: 100%;
+
+    row-gap: 20px;
+
+    .row__poster_wrapper {
+      flex: 0 0 auto;
+      margin-right: 10px;
+      cursor: pointer;
+      width: calc((100% - 40px) / 6.05);
+
+      // &:nth-child(6n + 1) > img:hover {
+      //   transform: translateX(-25px) translateY(-55px) translateY(0px)
+      //     scaleX(1) scaleY(1) translateZ(0px);
+      //   color: red;
+      //   height: 600px;
+      // }
+
+      @media screen and (max-width: 1200px) {
+        width: calc((100% - 40px) / 5);
+      }
+
+      @media screen and (max-width: 1000px) {
+        width: calc((100% - 40px) / 4);
+      }
+
+      @media screen and (max-width: 800px) {
+        width: calc((100% - 40px) / 3);
+      }
+
+      @media screen and (max-width: 600px) {
+        width: calc((100% - 40px) / 2);
+      }
+
+      // &:nth-last-child(-n + 2) {
+      //   flex: 1 0 auto;
+      //   max-width: none;
+      // }
+
+      .movie_content {
+        position: relative;
+        width: 100%;
+
+        &:hover .movie_controls {
+          display: block;
+        }
+      }
+
+      .hover {
+        position: absolute;
+        z-index: 10;
+        height: max-content;
+        width: 25rem;
+        top: -90px;
+        left: -50px;
+        border-radius: 0.3rem;
+        box-shadow: rgba(0, 0, 0, 0.75) 0px 3px 10px;
+        background-color: #1b1717;
+        transition: 0.3s ease-in-out;
+
+        .image_video_container {
+          position: relative;
+          height: 210px;
+          width: 100%;
+
+          .hovered_poster {
+            object-fit: cover;
+            border-radius: 0.3rem;
+          }
+        }
+      }
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        border-radius: 5px;
+        z-index: 1;
+      }
+
+      .row__posterLarge {
+        max-height: 250px;
+
+        &:hover {
+          transform: scale(1.09);
+        }
+      }
+    }
+  }
+}

@@ -2,7 +2,6 @@ import React from "react";
 import "./ProfileScreen.scss";
 import profileLogo from "../../assets/profile.jpg";
 
-import Nav from "../Nav/Nav";
 import { useSelector } from "react-redux";
 import { signOutUser } from "../../utils/firebase";
 import { selectUser } from "../../redux/user/user.reducer";
@@ -18,7 +17,6 @@ const ProfileScreen = () => {
   };
   return (
     <div className="profileScreen_container">
-      <Nav />
       <div className="profile_body">
         <h1>Edit Profile</h1>
         <div className="profile_info">

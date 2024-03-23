@@ -6,6 +6,7 @@ import "./TvShows.scss";
 import Banner from "../Banner/Banner";
 import MovieDetail from "../MovieDetail/MovieDetail.jsx";
 import { MovieContext } from "../../Context/MovieDetail.context.jsx";
+import Footer from "../Footer/Footer.jsx";
 
 const TvShows = () => {
   const { movieDetail } = useContext(MovieContext);
@@ -25,7 +26,6 @@ const TvShows = () => {
 
   return (
     <div className="TvShows_container">
-      <Nav />
       <Banner isMovieBanner={false} />
       <TvShowRow title="Trending" fetchUrl={requestsTvShows.fetchTrendingTV} />
       <TvShowRow
@@ -41,9 +41,7 @@ const TvShows = () => {
         title="Documentary Shows"
         fetchUrl={requestsTvShows.fetchDocumentaryTV}
       />
-
       <TvShowRow title="Kids Shows" fetchUrl={requestsTvShows.fetchKidsTV} />
-
       <TvShowRow
         title="Sci-Fi"
         fetchUrl={requestsTvShows.fetchSciFiFantasyTV}
@@ -60,8 +58,8 @@ const TvShows = () => {
         title="Popular TV Shows"
         fetchUrl={requestsTvShows.fetchPopularTV}
       />
-
       {movieDetail && <MovieDetail />}
+      <Footer />
     </div>
   );
 };

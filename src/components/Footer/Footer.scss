@@ -1,0 +1,28 @@
+.footer_container {
+  margin-top: auto;
+  height: 150px;
+  padding-bottom: 50px;
+  background-color: black;
+  .links_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    height: 90%;
+    .links {
+      text-decoration: none;
+      color: #fff;
+      h2 {
+        font-size: 0.8rem;
+        font-weight: 400;
+      }
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  h6 {
+    color: #fff;
+    text-align: center;
+  }
+}

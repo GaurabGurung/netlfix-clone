@@ -7,8 +7,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #000000a3;
-  z-index: 50;
+  z-index: 88;
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    background: #000000a3;
+  }
 
   .close_icon {
     position: fixed;
@@ -17,7 +26,7 @@
     padding: 10px;
     background-color: rgb(110, 109, 109);
     border-radius: 100px;
-    z-index: 7;
+    z-index: 99;
     cursor: pointer;
     &:hover {
       background-color: black;
@@ -30,7 +39,7 @@
     min-width: 900px;
     height: 95%;
     background-color: white;
-    z-index: 6;
+    z-index: 99;
     top: 30px;
     background-color: #111111;
     overflow-y: auto;

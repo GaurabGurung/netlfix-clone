@@ -60,7 +60,7 @@
 
         .hover {
           position: absolute;
-          z-index: 2;
+          z-index: 10;
           height: max-content;
           width: 25rem;
           top: -90px;
@@ -110,7 +110,7 @@
       font-size: 24px;
       color: white;
       cursor: pointer;
-      z-index: 4;
+      z-index: 20;
       transition: opacity 0.3s, transform 0.3s;
       padding: 10px;
       background-color: rgba(6, 6, 6, 0.761);

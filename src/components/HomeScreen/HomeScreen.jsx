@@ -9,6 +9,7 @@ import { MovieContext } from "../../Context/MovieDetail.context";
 import "./HomeScreen.scss";
 import TvShowRow from "../TvShowRow/TvShowRow";
 import requestsTvShows from "../../utils/Request_TvShows";
+import Footer from "../Footer/Footer";
 
 const HomeScreen = () => {
   // const isLargeRow = true;
@@ -32,13 +33,10 @@ const HomeScreen = () => {
 
   return (
     <div ref={modalRef} className="homeScreen">
-      <Nav />
       <Banner isMovieBanner={true} />
       <div className="rows_container modalIsOpen">
-        <Row
-          title="Adventure Movies "
-          fetchUrl={requestsTvShows.fetchAdventureTV}
-        />
+        <Row title="Drama Movies" fetchUrl={requestsMovies.fetchDramaMovies} />
+
         <TvShowRow
           title="Trending TV Shows"
           fetchUrl={requestsTvShows.fetchTrendingTV}
@@ -86,8 +84,8 @@ const HomeScreen = () => {
         />
 
         <Row title="Crime Movies" fetchUrl={requestsMovies.fetchCrimeMovies} />
-        <Row title="Drama Movies" fetchUrl={requestsMovies.fetchDramaMovies} />
       </div>
+      <Footer />
       {movieDetail && <MovieDetail />}
     </div>
   );

@@ -194,6 +194,7 @@ const TvShowRow = ({ title, fetchUrl, isLargeRow = false }) => {
                           title={hoveredShow.name}
                           videoKey={trailerUrl}
                           date={show.first_air_date}
+                          media={show}
                         />
                       </div>
                     )}
