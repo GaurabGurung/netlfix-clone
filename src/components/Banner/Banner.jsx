@@ -75,6 +75,9 @@ const Banner = ({ isMovieBanner }) => {
       );
     }
   };
+  const truncate = (string, n) => {
+    return string?.length > n ? string.substr(0, n - 1) + "..." : string;
+  };
 
   const handleInfoClick = async () => {
     setMovieDetail(true);
@@ -119,7 +122,7 @@ const Banner = ({ isMovieBanner }) => {
         <h1 className="banner__title">
           {isMovieBanner ? media.original_title : media.original_name}
         </h1>
-        <h1 className="banner__description">{media.overview}</h1>
+        <h1 className="banner__description">{truncate(media.overview, 150)}</h1>
         <div className="banner__buttons">
           <button className="banner__button" onClick={handlePlayClick}>
             <RiPlayFill />
