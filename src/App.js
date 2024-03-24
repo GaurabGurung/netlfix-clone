@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,10 +13,12 @@ import ProfileScreen from "./components/ProfileScreen/ProfileScreen";
 import TvShows from "./components/TvShows/TvShows";
 import Movies from "./components/Movies/Movie";
 import Mylist from "./components/Mylist/Mylist";
-import Nav from "./components/Nav/Nav";
+import IntroLogo from "./components/IntroLogo/IntroLogo";
+
 function App() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
     const unsubscribe = () =>
@@ -35,20 +37,32 @@ function App() {
       });
     return () => unsubscribe();
   }, [dispatch]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowIntro(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="app">
-      {!user ? (
-        <LoginScreen />
-      ) : (
+      {showIntro && <IntroLogo />}{" "}
+      {!showIntro && (
         <>
-          <Nav />
-          <Routes>
-            <Route path="/profile" element={<ProfileScreen />} />
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/tvshows" element={<TvShows />} />
-            <Route path="/movies" element={<Movies />} />
-            <Route path="/mylist" element={<Mylist />} />
-          </Routes>
+          {!user ? (
+            <LoginScreen />
+          ) : (
+            <Routes>
+              <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/" element={<HomeScreen />} />
+              <Route path="/tvshows" element={<TvShows />} />
+              <Route path="/movies" element={<Movies />} />
+              <Route path="/mylist" element={<Mylist />} />
+              <Route path="/intro" element={<Navigate to="/" />} />
+            </Routes>
+          )}
         </>
       )}
     </div>

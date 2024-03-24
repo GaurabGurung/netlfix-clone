@@ -5,10 +5,10 @@ import movieRequests from "../../utils/Request_Movies";
 import tvShowsRequest from "../../utils/Request_TvShows";
 import { RiInformationLine, RiPlayFill } from "@remixicon/react";
 import { MovieContext } from "../../Context/MovieDetail.context";
+import Skeleton from "react-loading-skeleton";
 
 const Banner = ({ isMovieBanner }) => {
-  // Accept a prop to determine whether it's a movie or TV show banner
-  const [media, setMedia] = useState(null); // Rename state variable to "media"
+  const [media, setMedia] = useState(null);
   const {
     setTargetedMovie,
     setMovieDetail,
@@ -18,13 +18,7 @@ const Banner = ({ isMovieBanner }) => {
     videoLink,
   } = useContext(MovieContext);
 
-  const [video, setVideo] = useState("");
-
-  const toggleDetailPopUp = () => {
-    setMovieDetail(true);
-    setShowTrailer(false);
-    setHoveredMovie(null);
-  };
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +26,6 @@ const Banner = ({ isMovieBanner }) => {
         let randomMedia;
         let trailerKey = "";
 
-        // Fetch data based on whether it's a movie or TV show banner
         const request = await axios.get(
           isMovieBanner
             ? movieRequests.fetchPopularMovies
@@ -44,7 +37,6 @@ const Banner = ({ isMovieBanner }) => {
         );
         randomMedia = request.data.results[randomIndex];
 
-        // Fetch trailer key for the random media
         const apiKey = "8c97e4147e037337c7e362100f2286f2";
         const trailerResponse = await axios.get(
           `${isMovieBanner ? "movie" : "tv"}/${
@@ -54,9 +46,7 @@ const Banner = ({ isMovieBanner }) => {
 
         trailerKey = trailerResponse.data.results[0]?.key;
 
-        // Check if trailer key exists
         while (!trailerKey) {
-          // Refetch random media and trailer key
           const newIndex = Math.floor(
             Math.random() * request.data.results.length
           );
@@ -71,8 +61,8 @@ const Banner = ({ isMovieBanner }) => {
           trailerKey = newTrailerResponse.data.results[0]?.key;
         }
 
-        setVideo(`https://www.youtube.com/watch?v=${trailerKey}`);
         setMedia(randomMedia);
+        setIsLoading(false);
 
         return request;
       } catch (error) {
@@ -84,22 +74,29 @@ const Banner = ({ isMovieBanner }) => {
   }, [isMovieBanner]);
 
   const handlePlayClick = () => {
-    if (video) {
-      window.open(video, "_blank");
+    if (media?.videos?.results[0]?.key) {
+      window.open(
+        `https://www.youtube.com/watch?v=${media?.videos?.results[0]?.key}`,
+        "_blank"
+      );
     }
   };
 
   const handleInfoClick = () => {
     setMovieDetail(true);
     setTargetedMovie(media);
-    setVideoLink(video);
+    setVideoLink(
+      `https://www.youtube.com/watch?v=${media?.videos?.results[0]?.key}`
+    );
   };
 
-  const truncate = (string, n) => {
-    return string?.length > n ? string.substr(0, n - 1) + "..." : string;
-  };
-
-  if (!media) return null;
+  if (isLoading) {
+    return (
+      <header className="banner_container">
+        <Skeleton height={500} />
+      </header>
+    );
+  }
 
   return (
     <header
@@ -115,7 +112,7 @@ const Banner = ({ isMovieBanner }) => {
         <h1 className="banner__title">
           {isMovieBanner ? media.original_title : media.original_name}
         </h1>
-        <h1 className="banner__description">{truncate(media.overview, 250)}</h1>
+        <h1 className="banner__description">{media.overview}</h1>
         <div className="banner__buttons">
           <button className="banner__button" onClick={handlePlayClick}>
             <RiPlayFill />

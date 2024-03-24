@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./HomeScreen.scss";
 import Nav from "../Nav/Nav";
 import Banner from "../Banner/Banner";
@@ -6,14 +6,11 @@ import Row from "../Row/Row";
 import requestsMovies from "../../utils/Request_Movies";
 import MovieDetail from "../MovieDetail/MovieDetail";
 import { MovieContext } from "../../Context/MovieDetail.context";
-import "./HomeScreen.scss";
 import TvShowRow from "../TvShowRow/TvShowRow";
 import requestsTvShows from "../../utils/Request_TvShows";
 import Footer from "../Footer/Footer";
 
 const HomeScreen = () => {
-  // const isLargeRow = true;
-
   const { movieDetail } = useContext(MovieContext);
   const modalRef = useRef();
 
@@ -33,15 +30,14 @@ const HomeScreen = () => {
 
   return (
     <div ref={modalRef} className="homeScreen">
+      <Nav />
       <Banner isMovieBanner={true} />
       <div className="rows_container modalIsOpen">
         <Row title="Drama Movies" fetchUrl={requestsMovies.fetchDramaMovies} />
-
         <TvShowRow
           title="Trending TV Shows"
           fetchUrl={requestsTvShows.fetchTrendingTV}
         />
-
         <Row
           title="top Rated Movies"
           fetchUrl={requestsMovies.fetchTopRatedMovies}
@@ -82,7 +78,6 @@ const HomeScreen = () => {
           title="Mystery Shows"
           fetchUrl={requestsTvShows.fetchMysteryTV}
         />
-
         <Row title="Crime Movies" fetchUrl={requestsMovies.fetchCrimeMovies} />
       </div>
       <Footer />

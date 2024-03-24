@@ -7,6 +7,7 @@ import { MovieContext } from "../../Context/MovieDetail.context";
 import TrailerControls from "../TrailerControls/TrailerControls";
 import Trailer from "../Trailer/Trailer";
 import MovieDetail from "../MovieDetail/MovieDetail";
+import Nav from "../Nav/Nav";
 const Mylist = () => {
   const mylist = useSelector(selectMyList);
   const isLargeRow = false;
@@ -89,6 +90,7 @@ const Mylist = () => {
 
   return (
     <div className="mylist_container">
+      <Nav />
       <h1>My List</h1>
       {mylist.length === 0 ? (
         <div className="empty_text">

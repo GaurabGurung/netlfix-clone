@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { signOutUser } from "../../utils/firebase";
 import { selectUser } from "../../redux/user/user.reducer";
 import { useNavigate } from "react-router-dom";
+import Nav from "../Nav/Nav";
 
 const ProfileScreen = () => {
   const user = useSelector(selectUser);
@@ -17,6 +18,7 @@ const ProfileScreen = () => {
   };
   return (
     <div className="profileScreen_container">
+      <Nav />
       <div className="profile_body">
         <h1>Edit Profile</h1>
         <div className="profile_info">

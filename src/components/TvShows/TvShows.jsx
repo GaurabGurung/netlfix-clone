@@ -26,6 +26,7 @@ const TvShows = () => {
 
   return (
     <div className="TvShows_container">
+      <Nav />
       <Banner isMovieBanner={false} />
       <TvShowRow title="Trending" fetchUrl={requestsTvShows.fetchTrendingTV} />
       <TvShowRow

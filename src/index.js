@@ -7,20 +7,23 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { MovieProvider } from "./Context/MovieDetail.context";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  <BrowserRouter>
-    <React.StrictMode>
-      <Provider store={store}>
-        <MovieProvider>
-          <App />
-        </MovieProvider>
-      </Provider>
-    </React.StrictMode>
-  </BrowserRouter>
+  <SkeletonTheme baseColor="#FF0000" highlightColor="#FF0000">
+    <BrowserRouter>
+      <React.StrictMode>
+        <Provider store={store}>
+          <MovieProvider>
+            <App />
+          </MovieProvider>
+        </Provider>
+      </React.StrictMode>
+    </BrowserRouter>
+  </SkeletonTheme>
 );
 
 // If you want to start measuring performance in your app, pass a function
