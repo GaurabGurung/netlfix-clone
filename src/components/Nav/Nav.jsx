@@ -75,9 +75,9 @@ const Nav = () => {
           </div>
         </div>
         {/* <button className="logout__btn">Log Out</button> */}
-        <Link to="/profile">
-          <img src={profileLogo} alt="" className="profile_icon" />
-        </Link>
+        {/* <Link to="/profile"> */}
+        <img src={profileLogo} alt="" className="profile_icon" />
+        {/* </Link> */}
       </div>
     </div>
   );

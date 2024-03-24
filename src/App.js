@@ -50,18 +50,18 @@ function App() {
       {showIntro && <IntroLogo />}{" "}
       {!showIntro && (
         <>
-          {!user ? (
+          {/* {!user ? (
             <LoginScreen />
-          ) : (
-            <Routes>
-              <Route path="/profile" element={<ProfileScreen />} />
-              <Route path="/" element={<HomeScreen />} />
-              <Route path="/tvshows" element={<TvShows />} />
-              <Route path="/movies" element={<Movies />} />
-              <Route path="/mylist" element={<Mylist />} />
-              <Route path="/intro" element={<Navigate to="/" />} />
-            </Routes>
-          )}
+          ) : ( */}
+          <Routes>
+            <Route path="/profile" element={<ProfileScreen />} />
+            <Route path="/" element={<HomeScreen />} />
+            <Route path="/tvshows" element={<TvShows />} />
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/mylist" element={<Mylist />} />
+            <Route path="/intro" element={<Navigate to="/" />} />
+          </Routes>
+          {/* )} */}
         </>
       )}
     </div>

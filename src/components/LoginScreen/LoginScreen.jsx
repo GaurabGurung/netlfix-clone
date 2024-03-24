@@ -6,7 +6,7 @@ import maxflix_background from "../../assets/maxflix_background1.jpeg";
 import SignIn from "../SignIn/SignIn";
 
 const LoginScreen = () => {
-  const [signIn, setSignIn] = useState(false);
+  const [signIn, setSignIn] = useState(true);
 
   // Function to handle anonymous login
   const handleLogin = async () => {
