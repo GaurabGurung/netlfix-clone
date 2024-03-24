@@ -9,14 +9,8 @@ import Skeleton from "react-loading-skeleton";
 
 const Banner = ({ isMovieBanner }) => {
   const [media, setMedia] = useState(null);
-  const {
-    setTargetedMovie,
-    setMovieDetail,
-    setShowTrailer,
-    setHoveredMovie,
-    setVideoLink,
-    videoLink,
-  } = useContext(MovieContext);
+  const { setTargetedMovie, setMovieDetail, setVideoLink, videoLink } =
+    useContext(MovieContext);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -74,20 +68,33 @@ const Banner = ({ isMovieBanner }) => {
   }, [isMovieBanner]);
 
   const handlePlayClick = () => {
-    if (media?.videos?.results[0]?.key) {
+    if (media && media.videos?.results[0]?.key) {
       window.open(
-        `https://www.youtube.com/watch?v=${media?.videos?.results[0]?.key}`,
+        `https://www.youtube.com/watch?v=${media.videos.results[0].key}`,
         "_blank"
       );
     }
   };
 
-  const handleInfoClick = () => {
+  const handleInfoClick = async () => {
     setMovieDetail(true);
     setTargetedMovie(media);
-    setVideoLink(
-      `https://www.youtube.com/watch?v=${media?.videos?.results[0]?.key}`
-    );
+
+    let trailerKey = media?.videos?.results[0]?.key;
+    while (!trailerKey) {
+      const apiKey = "8c97e4147e037337c7e362100f2286f2";
+      const trailerResponse = await axios.get(
+        `${isMovieBanner ? "movie" : "tv"}/${
+          media.id
+        }/videos?language=en-US&api_key=${apiKey}`
+      );
+
+      trailerKey = trailerResponse.data.results[0]?.key;
+
+      if (trailerKey) {
+        setVideoLink(`https://www.youtube.com/watch?v=${trailerKey}`);
+      }
+    }
   };
 
   if (isLoading) {
