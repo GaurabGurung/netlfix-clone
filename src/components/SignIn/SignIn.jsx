@@ -1,26 +1,19 @@
 import React, { useRef } from "react";
-import "./SignUp.scss";
+import "./SignIn.scss";
 import {
   createAuthUserWithEmailandPassword,
   signInUserAuthWithEmailAndPassword,
 } from "../../utils/firebase";
+import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+const SignIn = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const register = (e) => {
-    e.preventDefault();
-    createAuthUserWithEmailandPassword(
-      emailRef.current.value,
-      passwordRef.current.value
-    )
-      .then((authUser) => {
-        console.log(authUser);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+  const navigate = useNavigate();
+
+  const navigateToSignUp = () => {
+    navigate("/signup");
   };
   const signIn = (e) => {
     e.preventDefault();
@@ -34,18 +27,18 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signup__container">
+    <div className="signin__container">
       <form>
-        <h1>Sign Up</h1>
+        <h1>Sign In</h1>
         <input type="email" placeholder="Email" ref={emailRef} />
         <input type="Password" placeholder="password" ref={passwordRef} />
         <button type="submit" onClick={signIn}>
-          Sign Up
+          Sign In
         </button>
         <h4>
-          <span className="grey_text"> Already have an account? </span>
-          <span className="signUp_link" onClick={register}>
-            Sign In Here
+          <span className="grey_text"> New to Maxflix? </span>
+          <span className="signUp_link" onClick={navigateToSignUp}>
+            Sign Up now
           </span>
         </h4>
       </form>
@@ -53,4 +46,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;

@@ -3,19 +3,11 @@ import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  signInAnonymously,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import {
-  getFirestore,
-  doc, //methods for pulling a document
-  getDoc, // method to get a file inside the documnet
-  setDoc, // method to set a file inside the document
-  collection, // mostly used to create or target a specific collection
-  writeBatch, // creates a batch and writes a document using multiple methods to make it successfully
-  query, //to find documents with some specification
-  getDocs,
-} from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDwCNhkrUAgxLyTd8K4tcz_-KzFSrj4RZA",
@@ -41,3 +33,12 @@ export const signInUserAuthWithEmailAndPassword = async (email, password) => {
 };
 
 export const signOutUser = () => signOut(auth);
+
+export const handleAnonymousLogin = async () => {
+  try {
+    const userCredential = await signInAnonymously(auth);
+    return userCredential;
+  } catch (error) {
+    throw new Error("Error signing in anonymously: " + error.message);
+  }
+};

@@ -17,18 +17,31 @@
       object-fit: contain;
       z-index: 2;
     }
-
-    .signin_btn {
+    .signin_container {
       position: fixed;
-      padding: 10px 20px;
       top: 10px;
       right: 20px;
-      font-size: 1rem;
-      background-color: #e50914;
-      color: #fff;
-      border: none;
       z-index: 2;
-      cursor: pointer;
+      display: flex;
+      gap: 10px;
+      .signin_btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+        background-color: #e50914;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+
+      .anonymous_signin_btn {
+        padding: 10px 20px;
+
+        font-size: 1rem;
+        background-color: #e50914;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
     }
 
     .loginScreen_gradient {
@@ -52,8 +65,6 @@
       transform: translate(-50%, -50%);
       display: flex;
       flex-direction: column;
-      // justify-content: center;
-      // align-items: center;
       z-index: 2;
       color: #fff;
       padding: 20px;
@@ -64,6 +75,7 @@
         margin-bottom: 20px;
         text-align: center;
       }
+
       h2 {
         font-size: 2rem;
         font-weight: 400;
@@ -80,10 +92,12 @@
       .loginScreen__input {
         width: 100%;
         margin: 20px;
+
         form {
-          display: flex; // Use flex to align input and button horizontally
+          display: flex;
           align-items: center;
           justify-content: center;
+
           input {
             padding: 10px;
             outline-width: 0;

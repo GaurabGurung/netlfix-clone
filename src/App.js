@@ -24,7 +24,6 @@ function App() {
     const unsubscribe = () =>
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          console.log(user);
           dispatch(
             login({
               uid: user.uid,
