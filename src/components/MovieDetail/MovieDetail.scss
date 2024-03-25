@@ -19,19 +19,21 @@
     background: #000000a3;
   }
 
-  // .close_icon {
-  //   position: fixed;
-  //   top: 40px;
-  //   right: 20%;
-  //   padding: 10px;
-  //   background-color: rgb(110, 109, 109);
-  //   border-radius: 100px;
-  //   z-index: 99;
-  //   cursor: pointer;
-  //   &:hover {
-  //     background-color: black;
-  //   }
-  // }
+  .close_icon {
+    position: absolute;
+    top: 70px; /* Adjust the distance from the top */
+    right: 10%; /* Adjust the distance from the right */
+    z-index: 99; /* Ensure the close icon appears above other elements */
+    cursor: pointer;
+    padding: 10px;
+    background-color: black;
+    border-radius: 100px;
+    z-index: 99;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
 
   .movie_popup {
     position: fixed;
@@ -39,7 +41,7 @@
     min-width: 900px;
     height: 95%;
     background-color: white;
-    z-index: 99;
+    z-index: 90;
     top: 30px;
     background-color: #111111;
     overflow-y: auto;
@@ -59,6 +61,7 @@
       height: 70%;
       background-size: cover;
       background-position: center;
+      object-fit: fill;
 
       .icons {
         bottom: 90px;
@@ -175,5 +178,47 @@
         content: ",";
       }
     }
+  }
+}
+@media screen and (max-width: 1200px) {
+  .movieDetails_container .movie_popup {
+    min-width: 80%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .movieDetails_container .movie_popup {
+    min-width: 90%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .movieDetails_container .movie_popup {
+    min-width: 95%;
+  }
+
+  .movieDetails_container .movie_popup .poster .icons {
+    bottom: 50px;
+    left: 20px;
+  }
+
+  .movieDetails_container .movie_popup .poster .banner--fadeBottom {
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .movieDetails_container .movie_popup {
+    width: 20px;
+  }
+
+  .movieDetails_container .movie_popup .poster {
+    bottom: 20px;
+    left: 10px;
+    height: 60%;
+  }
+
+  .movieDetails_container .movie_popup .movie_details {
+    padding: 10px;
   }
 }
