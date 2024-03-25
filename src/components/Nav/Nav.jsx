@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Nav.scss";
 import MaxflixLogo from "../../assets/maxflix.png";
 import { Link } from "react-router-dom";
-import { RiSearchLine } from "@remixicon/react";
+import { RiArrowDropDownFill, RiSearchLine } from "@remixicon/react";
 import profileLogo from "../../assets/profile.jpg";
 
 const Nav = () => {
@@ -35,11 +35,6 @@ const Nav = () => {
         <Link to="/">
           <img className="nav_logo" src={MaxflixLogo} alt="Netflix logo" />
         </Link>
-        {/* <img
-          className="nav_avatar"
-          src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
-          alt="Netflix avatar"
-        /> */}
         <ul className="links">
           {links.map(({ name, link }) => {
             return (
@@ -50,6 +45,23 @@ const Nav = () => {
               </li>
             );
           })}
+          <div className="browse_option">
+            <h4>Browse</h4>
+
+            <RiArrowDropDownFill color="white" />
+
+            <div className="hover_options">
+              {links.map(({ name, link }) => {
+                return (
+                  <li key={name}>
+                    <Link to={link} className="link">
+                      {name}
+                    </Link>
+                  </li>
+                );
+              })}
+            </div>
+          </div>
         </ul>
         <div className="search__container">
           <div className={`search ${showSearch ? "show_search" : ""}`}>

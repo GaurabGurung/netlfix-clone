@@ -47,7 +47,8 @@ function App() {
 
   return (
     <div className="app">
-      {showIntro && <IntroLogo />}{" "}
+      {showIntro && <IntroLogo />}
+
       {!showIntro && (
         <>
           {/* {!user ? (
