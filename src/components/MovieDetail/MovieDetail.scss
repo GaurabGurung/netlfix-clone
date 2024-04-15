@@ -199,7 +199,7 @@
 
   .movieDetails_container .movie_popup .poster .icons {
     bottom: 50px;
-    left: 20px;
+    // left: 20px;
   }
 
   .movieDetails_container .movie_popup .poster .banner--fadeBottom {
@@ -209,12 +209,10 @@
 
 @media screen and (max-width: 480px) {
   .movieDetails_container .movie_popup {
-    width: 20px;
   }
 
   .movieDetails_container .movie_popup .poster {
     bottom: 20px;
-    left: 10px;
     height: 60%;
   }
 
