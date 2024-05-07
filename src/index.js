@@ -8,6 +8,7 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { MovieProvider } from "./Context/MovieDetail.context";
 import { SkeletonTheme } from "react-loading-skeleton";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -30,3 +31,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+serviceWorkerRegistration.register();
